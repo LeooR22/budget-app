@@ -17,7 +17,7 @@ ReactDOM.render(
       <Route path="/" element={<App />}>
         <Route index element={<Home />} />
         <Route path="dashboard" element={<Dashboard />} />
-        <Route path="add" element={<AddRecord />} />
+        <Route path="dashboard/add" element={<AddRecord />} />
 
         <Route path="*" element={<NotFound />} />
       </Route>
