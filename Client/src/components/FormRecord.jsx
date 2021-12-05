@@ -1,7 +1,8 @@
 import Swal from "sweetalert2";
 import { useForm } from "../hooks/useForm";
+import Axios from "axios";
 
-const FormRecord = ({ addForm }) => {
+const FormRecord = () => {
   const initialState = {
     concept: "",
     amount: "",
@@ -41,15 +42,6 @@ const FormRecord = ({ addForm }) => {
       });
     }
 
-    // addForm({
-    //   concept: concept,
-    //   amount: amount,
-    //   date: date,
-    //   type: type === "income" ? false : true,
-    //   id: Date.now(),
-    // });
-    console.log(concept, amount, date, type);
-
     Swal.fire({
       title: "Success",
       text: "¡Record added!",
@@ -58,11 +50,22 @@ const FormRecord = ({ addForm }) => {
 
     reset();
   };
+  const addRecord = () => {
+    console.log(concept);
+    Axios.post("http://localhost:3001/create", {
+      concept,
+      amount,
+      date,
+      type,
+    }).then(() => {
+      console.log("success");
+    });
+  };
 
   return (
     <>
       <h3>form</h3>
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} className="w-25 ">
         <input
           type="text"
           placeholder="Concept"
@@ -96,7 +99,7 @@ const FormRecord = ({ addForm }) => {
           <option value="income">Income</option>
           <option value="expense">Expense</option>
         </select>
-        <button type="submit" className="btn btn-primary">
+        <button onClick={addRecord} type="submit" className="btn btn-primary">
           Create Record
         </button>
       </form>

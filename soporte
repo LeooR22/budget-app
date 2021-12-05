@@ -1,0 +1,7 @@
+CREATE TABLE `budgetRecordSystem`.`records` (
+  `recordId` INT NOT NULL AUTO_INCREMENT,
+  `concept` TEXT(255) NOT NULL,
+  `amount` INT NOT NULL,
+  `date` DATE NOT NULL,
+  `type` TEXT(255) NOT NULL,
+  PRIMARY KEY (`recordId`));
