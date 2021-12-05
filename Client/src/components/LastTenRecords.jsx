@@ -1,10 +1,20 @@
 import { useState } from "react";
 import Axios from "axios";
 
-const GetRecordsList = () => {
+const LastTenRecords = () => {
   const [recordsList, setRecordsList] = useState([]);
 
   const getRecords = () => {
+    // create endpoint with the last ten records
+    //
+    // (SELECT *
+    //     FROM (SELECT DISTINCT pages_id
+    //                  FROM   field_images
+    //                  ORDER BY created DESC
+    //                  LIMIT 3
+    //           ) M
+    // )
+    //
     Axios.get("http://localhost:3002/records").then((response) => {
       setRecordsList(response.data);
     });
@@ -15,7 +25,7 @@ const GetRecordsList = () => {
       <div>
         {recordsList.map((val, key) => {
           return (
-            <div className="card mb-2">
+            <div className="container card mb-2">
               <h5>concept: {val.concept}</h5>
               <h5>amount: {val.amount}</h5>
               <h5>date: {val.date}</h5>
@@ -28,4 +38,4 @@ const GetRecordsList = () => {
   );
 };
 
-export default GetRecordsList;
+export default LastTenRecords;

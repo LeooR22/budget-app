@@ -5,9 +5,10 @@ const Dashboard = () => {
   return (
     <div>
       <h1>Dashboard</h1>
-      <Link to="/dashboard/add" className="btn btn-outline-primary mb-2">
+      <Link to="/dashboard/add" className="btn btn-warning mb-3 w-25">
         Add record
       </Link>
+      <h2>Records</h2>
       <GetRecordsList />
     </div>
   );

@@ -43,6 +43,65 @@ app.get("/records", (req, res) => {
   });
 });
 
-app.listen(3001, () => {
-  console.log("Yay, your server is running on port 3001");
+app.get("/records/income", (req, res) => {
+  db.query("SELECT * FROM records WHERE type='income'", (err, result) => {
+    if (err) {
+      console.log(err);
+    } else {
+      res.send(result);
+    }
+  });
+});
+
+app.get("/records/expense", (req, res) => {
+  db.query("SELECT * FROM records WHERE type='expense'", (err, result) => {
+    if (err) {
+      console.log(err);
+    } else {
+      res.send(result);
+    }
+  });
+});
+
+app.get("/records/income/sum", (req, res) => {
+  db.query(
+    'SELECT SUM(amount) AS sumIncome FROM records WHERE type ="income"',
+    (err, result) => {
+      if (err) {
+        console.log(err);
+      } else {
+        res.send(result);
+      }
+    }
+  );
+});
+
+app.get("/records/expense/sum", (req, res) => {
+  db.query(
+    'SELECT SUM(amount) AS sumExpense FROM records WHERE type ="expense"',
+    (err, result) => {
+      if (err) {
+        console.log(err);
+      } else {
+        res.send(result);
+      }
+    }
+  );
+});
+
+app.get("/records/balance", (req, res) => {
+  db.query(
+    'SELECT (SELECT SUM(amount) FROM records WHERE type ="income") - (SELECT SUM(amount) FROM records WHERE type ="expense") AS balance',
+    (err, result) => {
+      if (err) {
+        console.log(err);
+      } else {
+        res.send(result);
+      }
+    }
+  );
+});
+
+app.listen(3002, () => {
+  console.log("Yay, your server is running on port 3002");
 });
