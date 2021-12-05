@@ -52,7 +52,7 @@ const FormRecord = () => {
   };
   const addRecord = () => {
     console.log(concept);
-    Axios.post("http://localhost:3001/create", {
+    Axios.post("http://localhost:3002/create", {
       concept,
       amount,
       date,
