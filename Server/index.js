@@ -34,13 +34,26 @@ app.post("/create", (req, res) => {
 });
 
 app.get("/records", (req, res) => {
-  db.query("SELECT * FROM records", (err, result) => {
+  db.query("SELECT * FROM records ORDER BY date DESC", (err, result) => {
     if (err) {
       console.log(err);
     } else {
       res.send(result);
     }
   });
+});
+
+app.get("/records/lastTen", (req, res) => {
+  db.query(
+    "SELECT * FROM records ORDER BY date DESC LIMIT 10",
+    (err, result) => {
+      if (err) {
+        console.log(err);
+      } else {
+        res.send(result);
+      }
+    }
+  );
 });
 
 app.get("/records/income", (req, res) => {

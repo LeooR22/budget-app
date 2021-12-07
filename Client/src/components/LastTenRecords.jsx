@@ -15,7 +15,7 @@ const LastTenRecords = () => {
     //           ) M
     // )
     //
-    Axios.get("http://localhost:3002/records").then((response) => {
+    Axios.get("http://localhost:3002/records/lastTen").then((response) => {
       setRecordsList(response.data);
     });
   };
