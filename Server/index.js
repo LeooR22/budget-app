@@ -102,6 +102,33 @@ app.get("/records/balance", (req, res) => {
   );
 });
 
+app.put("/update", (req, res) => {
+  const recordId = req.body.id;
+  const amount = req.body.amount;
+  db.query(
+    "UPDATE records SET amount = ? WHERE recordId = ?",
+    [amount, recordId],
+    (err, result) => {
+      if (err) {
+        console.log(err);
+      } else {
+        res.send(result);
+      }
+    }
+  );
+});
+
+app.delete("/delete/:id", (req, res) => {
+  const id = req.params.id;
+  db.query("DELETE FROM records WHERE recordId = ?", id, (err, result) => {
+    if (err) {
+      console.log(err);
+    } else {
+      res.send(result);
+    }
+  });
+});
+
 app.listen(3002, () => {
   console.log("Yay, your server is running on port 3002");
 });
