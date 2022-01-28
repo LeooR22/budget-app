@@ -1,5 +1,7 @@
 import { useState } from "react";
 import Axios from "axios";
+import FormRecord from "../components/FormRecord";
+import moment from "moment";
 
 const Dashboard = () => {
   const [concept, setConcept] = useState("");
@@ -10,25 +12,6 @@ const Dashboard = () => {
   const [newAmount, setNewAmount] = useState(0);
 
   const [recordList, setRecordlist] = useState([]);
-
-  const addRecord = () => {
-    Axios.post("http://localhost:3002/create", {
-      concept: concept,
-      amount: amount,
-      date: date,
-      type: type,
-    }).then(() => {
-      setRecordlist([
-        ...setRecordlist,
-        {
-          concept: concept,
-          amount: amount,
-          date: date,
-          type: type,
-        },
-      ]);
-    });
-  };
 
   const getRecords = () => {
     Axios.get("http://localhost:3002/records").then((response) => {
@@ -43,8 +26,8 @@ const Dashboard = () => {
     }).then((response) => {
       setRecordlist(
         recordList.map((val) => {
-          console.log(val.recordId);
-          console.log(id);
+          // console.log(val.recordId);
+          // console.log(id);
           return val.recordId === id
             ? {
                 recordId: val.recordId,
@@ -70,47 +53,11 @@ const Dashboard = () => {
   };
 
   return (
-    <div className="container">
-      <h1>Add new record</h1>
-      <form className="card">
-        <input
-          placeholder="Concept"
-          type="text"
-          className="form-control mb-2"
-          onChange={(event) => {
-            setConcept(event.target.value);
-          }}
-        />
-        <input
-          placeholder="Amount"
-          type="number"
-          className="form-control mb-2"
-          onChange={(event) => {
-            setAmount(event.target.value);
-          }}
-        />
-        <input
-          placeholder="Date"
-          type="date"
-          className="form-control mb-2"
-          onChange={(event) => {
-            setDate(event.target.value);
-          }}
-        />
-        <select
-          name="type"
-          className="form-control"
-          onChange={(event) => {
-            setType(event.target.value);
-          }}
-        >
-          <option value="income">Income</option>
-          <option value="expense">Expense</option>
-        </select>
-        <button onClick={addRecord} className="btn btn-success mb-3 mt-2">
-          Add Record
-        </button>
-      </form>
+    <div className="container ">
+      <h1 className="d-flex justify-content-center">Add new record</h1>
+
+      <FormRecord />
+
       <div>
         <button onClick={getRecords} className="btn btn-info mb-4">
           Show Records
@@ -118,11 +65,11 @@ const Dashboard = () => {
 
         {recordList.map((val, key) => {
           return (
-            <div className="container card mb-2">
+            <div key={val.recordId} className="container card mb-2">
               <div className="">
                 <h5>concept: {val.concept}</h5>
                 <h5>amount: {val.amount}</h5>
-                <h5>date: {val.date}</h5>
+                <h5>date: {moment(val.date).format("Do MMM YY")}</h5>
                 <h5>type: {val.type}</h5>
               </div>
               <div>

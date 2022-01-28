@@ -1,6 +1,5 @@
-import Swal from "sweetalert2";
 import { useForm } from "../hooks/useForm";
-import Axios from "axios";
+import { alertsForm } from "../helpers/alertsForm";
 
 const FormRecord = () => {
   const initialState = {
@@ -17,55 +16,13 @@ const FormRecord = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    if (!concept.trim()) {
-      e.target[0].focus();
-      return Swal.fire({
-        title: "Error",
-        text: "Empty concept field",
-        icon: "error",
-      });
-    }
-    if (!amount.trim()) {
-      e.target[1].focus();
-      return Swal.fire({
-        title: "Error",
-        text: "Empty amount field",
-        icon: "error",
-      });
-    }
-    if (!date.trim()) {
-      e.target[2].focus();
-      return Swal.fire({
-        title: "Error",
-        text: "Empty date field",
-        icon: "error",
-      });
-    }
-
-    Swal.fire({
-      title: "Success",
-      text: "¡Record added!",
-      icon: "success",
-    });
-
-    reset();
-  };
-  const addRecord = () => {
-    console.log(concept);
-    Axios.post("http://localhost:3002/create", {
-      concept,
-      amount,
-      date,
-      type,
-    }).then(() => {
-      console.log("success");
-    });
+    alertsForm(e, concept, amount, date, type, reset);
   };
 
   return (
-    <>
-      <h3>form</h3>
-      <form onSubmit={handleSubmit} className="w-25 ">
+    <div className="d-flex justify-content-center">
+      <div></div>
+      <form onSubmit={handleSubmit} className="w-50 ">
         <input
           type="text"
           placeholder="Concept"
@@ -99,11 +56,15 @@ const FormRecord = () => {
           <option value="income">Income</option>
           <option value="expense">Expense</option>
         </select>
-        <button onClick={addRecord} type="submit" className="btn btn-primary">
+        <button
+          // onClick={addRecord}
+          type="submit"
+          className="btn btn-primary mb-2"
+        >
           Create Record
         </button>
       </form>
-    </>
+    </div>
   );
 };
 

@@ -21,7 +21,7 @@ const GetRecordsList = () => {
   return (
     <>
       <div>
-        {recordsList.map((val, key) => {
+        {recordsList.map((val) => {
           return (
             <>
               <div className="container card mb-2">
