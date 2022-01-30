@@ -1,24 +1,20 @@
 import { useEffect, useState } from "react";
-import Axios from "axios";
+import { getData } from "../helpers/getData";
 
-export const useFetchData = () => {
+export const useFetchData = (type) => {
   const [state, setState] = useState({
-    datas: [],
+    data: [],
     loading: true,
   });
 
   useEffect(() => {
-    Axios.get("http://localhost:3002/records/lastTen").then((datas) => {
+    getData(type).then((data) => {
       setState({
-        datas,
+        data,
         loading: false,
       });
     });
-
-    return () => {
-      setState({});
-    };
-  }, []);
+  }, [type]);
 
   return state;
 };
