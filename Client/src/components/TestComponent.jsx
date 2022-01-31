@@ -13,10 +13,17 @@ const TestComponent = ({ value }) => {
 
   //Parse array to query
 
+  //Desarollo:  http://localhost:8080/api/records
+  //Produccion: https://budget-app-challenge.herokuapp.com/api/records
+  //
+
   useEffect(() => {
     axios
       .get(
-        `http://localhost:8080/api/records/${parameterizeArray("typeq", value)}`
+        `https://budget-app-challenge.herokuapp.com/api/records/${parameterizeArray(
+          "typeq",
+          value
+        )}`
       )
       .then((res) => {
         res.data.records.sort(function (a, b) {

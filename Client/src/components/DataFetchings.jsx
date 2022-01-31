@@ -5,9 +5,14 @@ import moment from "moment";
 const DataFetchings = () => {
   const [records, setRecords] = useState([]);
 
+  //
+  //Desarollo:  http://localhost:8080/api/records
+  //Produccion: https://budget-app-challenge.herokuapp.com/api/records
+  //
+
   useEffect(() => {
     axios
-      .get(`http://localhost:8080/api/records`)
+      .get(`https://budget-app-challenge.herokuapp.com/api/records`)
       .then((res) => {
         res.data.records.sort(function (a, b) {
           var dateA = new Date(a.date),
