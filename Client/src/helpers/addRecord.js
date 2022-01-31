@@ -2,7 +2,7 @@ import Axios from "axios";
 
 export const addRecord = (concept, amount, date, type) => {
   console.log(concept);
-  Axios.post("http://localhost:8080/api/records/", {
+  Axios.post("https://budget-app-challenge.herokuapp.com/api/records", {
     concept,
     amount,
     date,
