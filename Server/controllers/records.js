@@ -3,12 +3,18 @@ const { response, request } = require("express");
 const Record = require("../models/record");
 
 const recordsGet = async (req = request, res = response) => {
-  const { limite = 5, desde = 0 } = req.query;
-  const query = { estado: true };
+  const { limite = 10, desde = 0, typeq = ["income", "expense"] } = req.query;
+  //PRUEBAS added type:"????"
+
+  const query = { type: typeq, estado: true };
+  //
 
   const [total, records] = await Promise.all([
     Record.countDocuments(query),
-    Record.find(query).skip(Number(desde)).limit(Number(limite)),
+    Record.find(query)
+      .sort({ date: -1 })
+      .skip(Number(desde))
+      .limit(Number(limite)),
   ]);
 
   res.json({
